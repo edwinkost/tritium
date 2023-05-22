@@ -8,8 +8,7 @@ performance <- data.frame(matrix(ncol = 3, nrow = 0))
 
 colnames(performance) <- c('rmse', 'r_squared', 'adj_r_squared')
 
-for (val in seq(1,1000))
-{
+for (val in seq(1,1000)) {
 
 sample = dataset[sample(nrow(dataset),22),]; 
 rmse = rmse(sample$Validity, sample$SimpleModel); 
