@@ -25,8 +25,8 @@ predictors["multiplicative_term"] = multiplicative_term
 print(multiplicative_term)
 
 # target variable
-target = dataset["Applicability_tau_yr"]
-print(target)
+target = dataset["Applicability_tau_yr"].astype(float64)
+# ~ print(target)
 
 # fit the model using all data
 mlr_model = LinearRegression()
@@ -35,12 +35,8 @@ mlr_model.fit(predictors, target)
 # intercept and regression coefficients
 print(mlr_model.intercept_)
 print(mlr_model.coef_)
+# ~ -13.130654161539773
+# ~ [ 2.66284398  0.41955129 -0.09452936]
 
-# ~ # mae and rmse
-# ~ predictions = mlr_model.predict(predictors)
-# ~ r_squared =
-# ~ mae       = 
-# ~ rmse      =
-# ~ print(mae)
-# ~ print(rmse)
- 
+# calculate performance values
+predict
