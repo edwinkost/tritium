@@ -12,6 +12,8 @@ print(avg_pet_p_ratio)
 avg_dwt_m       = dataset["dwt_m"].mean()
 print(avg_dwt_m)
 
-
-
+# centering predictor variables to their avearage values
+ano_pet_p_ratio = pet_p_ratio - avg_pet_p_ratio
+ano_dwt_m       = dwt_m       - avg_dwt_m
+print(ano_pet_p_ratio, ano_dwt_m)
 
