@@ -54,11 +54,11 @@ mae         = mean_absolute_error(target, predictions)
 print(rmse)
 print(mae)
 
-# cross validation 
+# cross validation - I don't trust this
 lm = LinearRegression()
 X_train = predictors
 y_train = target
 # ~ folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
 folds = KFold(n_splits = 5, shuffle = True)
-scores = cross_val_score(lm, X_train, y_train, scoring='r2', cv=folds)
+scores = cross_val_score(lm, X_train, y_train, scoring='mae', cv=folds)
 print(scores)   
