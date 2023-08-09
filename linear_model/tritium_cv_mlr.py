@@ -26,7 +26,7 @@ print(multiplicative_term)
 
 # target variable
 target = dataset["Applicability_tau_yr"].astype(float)
-# ~ print(target)
+print(target)
 
 # fit the model using all data
 mlr_model = LinearRegression()
@@ -39,4 +39,4 @@ print(mlr_model.coef_)
 # ~ [ 2.66284398  0.41955129 -0.09452936]
 
 # calculate performance values
-predict
+# ~ predict
