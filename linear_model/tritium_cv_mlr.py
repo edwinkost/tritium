@@ -22,11 +22,11 @@ avg_dwt_m       = dataset["dwt_m"].mean()
 # - using the centered values
 multiplicative_term = (dataset["pet_p_ratio"] - avg_pet_p_ratio) * (dataset["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
-print(multiplicative_term)
+# ~ print(multiplicative_term)
 
 # target variable
 target = dataset["Applicability_tau_yr"].astype(float)
-print(target)
+# ~ print(target)
 
 # fit the model using all data
 mlr_model = LinearRegression()
@@ -39,17 +39,14 @@ print(mlr_model.coef_)
 # ~ [ 2.66284398  0.41955129 -0.09452936]
 
 # calculate performance values
+# - r squared and adj_r_squared
 r_squared     = mlr_model.score(predictors, target)
 adj_r_squared = 1 - (1-r_squared)*(len(target)-1)/(len(target)-predictors.shape[1]-1)
 print(r_squared)
 print(adj_r_squared)
-
-
+# - rmse and mae
 predictions = mlr_model.predict(predictors)
-
-# ~ adj_r_squared
-
-# ~ #display adjusted R-squared
-# ~ 1 - (1-model.score(X, y))*(len(y)-1)/(len(y)-X.shape[1]-1)
-
-
+rmse        = mean_squared_error(target, predictions)
+mae         = mean_absolute_error(target, predictions)
+print(rmse)
+print(mae)
