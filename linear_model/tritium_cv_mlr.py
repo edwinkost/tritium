@@ -46,7 +46,7 @@ print(r_squared)
 print(adj_r_squared)
 # - rmse and mae
 predictions = mlr_model.predict(predictors)
-rmse        = mean_squared_error(target, predictions)
+rmse        = (mean_squared_error(target, predictions))**0.5
 mae         = mean_absolute_error(target, predictions)
 print(rmse)
 print(mae)
