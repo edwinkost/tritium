@@ -55,7 +55,7 @@ print(rmse)
 print(mae)
 
 # cross validation 
-lm_model = LinearRegression()
+lm = LinearRegression()
 X_train = predictors
 y_train = target
 folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
