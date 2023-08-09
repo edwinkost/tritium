@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 from sklearn.model_selection import KFold
+from sklearn.model_selection import cross_val_score
 
 # read dataset
 dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
