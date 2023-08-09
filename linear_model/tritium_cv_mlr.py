@@ -39,4 +39,13 @@ print(mlr_model.coef_)
 # ~ [ 2.66284398  0.41955129 -0.09452936]
 
 # calculate performance values
-# ~ predict
+print(mlr_model.score(predictors, target)))
+
+predictions = mlr_model.predict(predictors)
+
+# ~ adj_r_squared
+
+# ~ #display adjusted R-squared
+# ~ 1 - (1-model.score(X, y))*(len(y)-1)/(len(y)-X.shape[1]-1)
+
+
