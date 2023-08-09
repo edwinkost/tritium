@@ -25,7 +25,7 @@ predictors["multiplicative_term"] = multiplicative_term
 print(multiplicative_term)
 
 # target variable
-target = dataset["Applicability_tau_yr"].astype(float64)
+target = dataset["Applicability_tau_yr"].astype(float)
 # ~ print(target)
 
 # fit the model using all data
