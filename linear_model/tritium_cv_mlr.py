@@ -60,4 +60,4 @@ X_train = predictors
 y_train = target
 folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
 scores = cross_val_score(lm, X_train, y_train, scoring='r2', cv=folds)
-scores   
+print(scores)   
