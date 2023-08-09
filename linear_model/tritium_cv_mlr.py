@@ -39,7 +39,7 @@ print(mlr_model.coef_)
 # ~ [ 2.66284398  0.41955129 -0.09452936]
 
 # calculate performance values
-print(mlr_model.score(predictors, target)))
+print(mlr_model.score(predictors, target))
 
 predictions = mlr_model.predict(predictors)
 
