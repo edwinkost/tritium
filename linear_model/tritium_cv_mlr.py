@@ -7,6 +7,8 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 from sklearn.model_selection import KFold
+from sklearn.model_selection import LeaveOneOut
+
 from sklearn.model_selection import cross_val_score
 
 # read dataset
@@ -59,7 +61,8 @@ lm = LinearRegression()
 X_train = predictors
 y_train = target
 # ~ folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
-folds = KFold(n_splits = 5, shuffle = True)
+# ~ folds = KFold(n_splits = 5, shuffle = True)
+folds = LeaveOneOut()
 # ~ scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
 scores = cross_val_score(lm, X_train, y_train, scoring='r2', cv=folds)
 print(scores)   
