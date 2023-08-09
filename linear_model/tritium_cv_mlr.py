@@ -27,3 +27,6 @@ print(target)
 
 mlr_model = LinearRegression()
 mlr_model.fit(predictors, target)
+print(mlr_model.intercept_)
+print(mlr_model.coef_)
+
