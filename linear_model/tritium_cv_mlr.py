@@ -1,6 +1,7 @@
 
 import pandas as pd
 import numpy as np
+from sklearn.linear_model import LinearRegression
 
 # read dataset
 dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
@@ -16,7 +17,11 @@ print(avg_dwt_m)
 ano_pet_p_ratio = dataset["pet_p_ratio"] - avg_pet_p_ratio
 ano_dwt_m       = dataset["dwt_m"]       - avg_dwt_m
 print(ano_pet_p_ratio, ano_dwt_m)
+predictors = pd.concat(ano_pet_p_ratio, ano_dwt_m)
 
 # target variable
-tau = dataset["Applicability_tau_yr"]
-print(tau)
+target = dataset["Applicability_tau_yr"]
+print(target)
+
+mlr_model = LinearRegression()
+mlr_model.fit(predictors, target)
