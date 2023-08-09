@@ -6,6 +6,8 @@ from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 
+from sklearn.model_selection import KFold
+
 # read dataset
 dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
 # ~ print(dataset.to_string())
@@ -50,3 +52,11 @@ rmse        = (mean_squared_error(target, predictions))**0.5
 mae         = mean_absolute_error(target, predictions)
 print(rmse)
 print(mae)
+
+# cross validation 
+lm_model = LinearRegression()
+X_train = predictors
+y_train = target
+folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
+scores = cross_val_score(lm, X_train, y_train, scoring='r2', cv=folds)
+scores   
