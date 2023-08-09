@@ -20,9 +20,9 @@ print(ano_pet_p_ratio, ano_dwt_m)
 predictors = pd.DataFrame(ano_pet_p_ratio, ano_dwt_m)
 print(predictors.to_string())
 
-# target variable
-target = dataset["Applicability_tau_yr"]
-print(target)
+# ~ # target variable
+# ~ target = dataset["Applicability_tau_yr"]
+# ~ print(target)
 
-mlr_model = LinearRegression()
-mlr_model.fit(predictors, target)
+# ~ mlr_model = LinearRegression()
+# ~ mlr_model.fit(predictors, target)
