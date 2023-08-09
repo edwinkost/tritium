@@ -17,3 +17,6 @@ ano_pet_p_ratio = dataset["pet_p_ratio"] - avg_pet_p_ratio
 ano_dwt_m       = dataset["dwt_m"]       - avg_dwt_m
 print(ano_pet_p_ratio, ano_dwt_m)
 
+# target variable
+tau = dataset["Applicability_tau_yr"]
+print(tau)
