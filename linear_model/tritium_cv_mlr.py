@@ -59,7 +59,7 @@ lm = LinearRegression()
 X_train = predictors
 y_train = target
 # ~ folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
-folds = KFold(n_splits = 1, shuffle = True)
+folds = KFold(n_splits = 10, shuffle = True)
 # ~ scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
 scores = cross_val_score(lm, X_train, y_train, scoring='r2', cv=folds)
 print(scores)   
