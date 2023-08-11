@@ -31,7 +31,7 @@ predictors["dwt_m"]       = dataset["dwt"]
 avg_pet_p_ratio = predictors["pet_p_ratio"].mean()
 avg_dwt_m       = predictors["dwt_m"].mean()
 # - using the centered values
-multiplicative_term = (dataset["pet_p_ratio"] - avg_pet_p_ratio) * (dataset["dwt_m"] - avg_dwt_m)
+multiplicative_term = (predictors["pet_p_ratio"] - avg_pet_p_ratio) * (predictors["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
 # ~ print(multiplicative_term)
 
