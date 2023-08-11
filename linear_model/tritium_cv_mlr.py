@@ -12,13 +12,19 @@ from sklearn.model_selection import LeaveOneOut
 from sklearn.model_selection import cross_val_score
 
 # read dataset
-dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
-# ~ print(dataset.to_string())
+# ~ dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
+# -- using the new dataset from Jaivime
+dataset = pd.read_csv("../datasets/version_20230812/dataset_selected_20230722.csv)
+print(dataset.to_string())
 
 # include pet_p_ratio and dwt_m as predictors
 predictors = pd.DataFrame()
-predictors["pet_p_ratio"] = dataset["pet_p_ratio"]
-predictors["dwt_m"]       = dataset["dwt_m"]
+# ~ predictors["pet_p_ratio"] = dataset["pet_p_ratio"]
+# ~ predictors["dwt_m"]       = dataset["dwt_m"]
+# -- using the new dataset from Jaivime
+# ~ No,Country,SiteID,SiteUniID,aet_p,pet_p,dwt,peak_v,cxtfit_v,cxtfit_D,cxtfit_R2,Applicability_tau
+predictors["pet_p_ratio"] = dataset["pet_p"]
+predictors["dwt_m"]       = dataset["dwt"]
 
 # add a multiplicative term incorporating the above pre
 # - calculate the average values of predictor variables
@@ -30,7 +36,10 @@ predictors["multiplicative_term"] = multiplicative_term
 # ~ print(multiplicative_term)
 
 # target variable
-target = dataset["Applicability_tau_yr"].astype(float)
+# ~ target = dataset["Applicability_tau_yr"].astype(float)
+# -- using the new dataset from Jaivime
+# ~ No,Country,SiteID,SiteUniID,aet_p,pet_p,dwt,peak_v,cxtfit_v,cxtfit_D,cxtfit_R2,Applicability_tau
+target = dataset["Applicability_tau"].astype(float)
 # ~ print(target)
 
 # fit the model using all data
