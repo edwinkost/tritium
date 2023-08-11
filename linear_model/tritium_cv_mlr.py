@@ -14,7 +14,7 @@ from sklearn.model_selection import cross_val_score
 # read dataset
 # ~ dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
 # -- using the new dataset from Jaivime
-dataset = pd.read_csv("../datasets/version_20230812/dataset_selected_20230722.csv)
+dataset = pd.read_csv("../datasets/version_20230812/dataset_selected_20230722.csv")
 print(dataset.to_string())
 
 # include pet_p_ratio and dwt_m as predictors
