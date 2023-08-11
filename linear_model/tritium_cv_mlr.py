@@ -28,8 +28,8 @@ predictors["dwt_m"]       = dataset["dwt"]
 
 # add a multiplicative term incorporating the above pre
 # - calculate the average values of predictor variables
-avg_pet_p_ratio = dataset["pet_p_ratio"].mean()
-avg_dwt_m       = dataset["dwt_m"].mean()
+avg_pet_p_ratio = predictors["pet_p_ratio"].mean()
+avg_dwt_m       = predictors["dwt_m"].mean()
 # - using the centered values
 multiplicative_term = (dataset["pet_p_ratio"] - avg_pet_p_ratio) * (dataset["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
