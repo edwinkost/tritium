@@ -83,7 +83,7 @@ print(r_squared_all, adj_r_squared_all, rmse_all, mae_all)
 
 
 # cross validation - with LeavePOut
-leaveout = LeavePOut(10)
+leaveout = LeavePOut(15)
 
 # make splits
 leaveout.get_n_splits(predictors)
@@ -93,8 +93,8 @@ leaveout.get_n_splits(predictors)
 lm = LinearRegression()
 X_train = predictors
 y_train = target
-# ~ folds = leaveout
-folds = LeaveOneOut()
+folds = leaveout
+# ~ folds = LeaveOneOut()
 scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
 print(-scores)   
 print(-scores.mean())   
