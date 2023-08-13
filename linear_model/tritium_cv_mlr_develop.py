@@ -4,7 +4,7 @@ import numpy as np
 
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import LeaveOneOut
@@ -15,13 +15,15 @@ from sklearn.model_selection import cross_val_score
 
 # calculate performance values
 def calculate_performance(predictors, target):
+
+    predictions = mlr_model.predict(predictors)
+    
     # - r squared and adj_r_squared
-    r_squared     = mlr_model.score(predictors, target)
+    r_squared     = r2_score(target, predictions)
     adj_r_squared = 1 - (1-r_squared)*(len(target)-1)/(len(target)-predictors.shape[1]-1)
     # ~ print(r_squared)
     # ~ print(adj_r_squared)
     # - rmse and mae
-    predictions = mlr_model.predict(predictors)
     rmse        = (mean_squared_error(target, predictions))**0.5
     mae         = mean_absolute_error(target, predictions)
     # ~ print(rmse)
@@ -120,7 +122,7 @@ for train_index, test_index in leaveout.split(predictors):
    r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test)    
    print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
    
-   if i > 50: break
+   if i == 50: break
     
    
    
