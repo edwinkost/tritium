@@ -75,7 +75,7 @@ intr_all = mlr_model.intercept_
 coef_all = mlr_model.coef_
 
 # get performance values
-r_squared_all, adj_r_squared_all, rmse_all, mae_all = calculate_performance(predictors, target)    
+r_squared_all, adj_r_squared_all, rmse_all, mae_all = calculate_performance(predictors, target, mlr_model)    
 
 
 
