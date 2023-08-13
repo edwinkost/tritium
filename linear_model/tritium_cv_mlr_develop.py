@@ -8,6 +8,7 @@ from sklearn.metrics import mean_squared_error, mean_absolute_error
 
 from sklearn.model_selection import KFold
 from sklearn.model_selection import LeaveOneOut
+from sklearn.model_selection import LeavePOut
 
 from sklearn.model_selection import cross_val_score
 
@@ -65,20 +66,28 @@ mae         = mean_absolute_error(target, predictions)
 print(rmse)
 print(mae)
 
-# cross validation - I don't trust this
-lm = LinearRegression()
-X_train = predictors
-y_train = target
+
+# cross validation - with LeavePOut
+lpo = LeavePOut(p = 9)
+lpo.get_n_splits(predictors) 
+
+for train_index, test_index in lpo.split(predictors): 
+   print("TRAIN:", train_index, "TEST:", test_index)
+   X_train, X_test = X[train_index], X[test_index]
+   Y_train, Y_test = Y[train_index], Y[test_index]
+
+
+# ~ # cross validation - I don't trust this
+# ~ lm = LinearRegression()
+# ~ X_train = predictors
+# ~ y_train = target
 # ~ folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
 # ~ folds = KFold(n_splits = 5, shuffle = True)
-folds = LeaveOneOut()
+# ~ folds = LeaveOneOut()
 # ~ scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
-scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
-print(scores)   
-print(scores.mean())   
-
-# ~ sklearn.utils._param_validation.InvalidParameterError: The 'scoring' parameter of check_scoring must be a str among {'f1_samples', 'completeness_score', 'f1_weighted', 'balanced_accuracy', 'precision_macro', 'jaccard_weighted', 'neg_mean_squared_log_error', 'average_precision', 'rand_score', 'roc_auc_ovr', 'top_k_accuracy', 'accuracy', 'jaccard_samples', 'matthews_corrcoef', 'positive_likelihood_ratio', 'neg_mean_absolute_error', 'adjusted_mutual_info_score', 'recall_macro', 'recall_samples', 'roc_auc_ovo_weighted', 'jaccard_micro', 'explained_variance', 'adjusted_rand_score', 'neg_mean_absolute_percentage_error', 'f1_micro', 'neg_root_mean_squared_error', 'precision_micro', 'jaccard_macro', 'fowlkes_mallows_score', 'recall_micro', 'f1_macro', 'r2', 'roc_auc_ovr_weighted', 'recall_weighted', 'neg_log_loss', 'v_measure_score', 'precision', 'homogeneity_score', 'max_error', 'neg_mean_squared_error', 'precision_samples', 'normalized_mutual_info_score', 'precision_weighted', 'f1', 'recall', 'neg_mean_poisson_deviance', 'jaccard', 'roc_auc_ovo', 'neg_median_absolute_error', 'neg_negative_likelihood_ratio', 'roc_auc', 'neg_mean_gamma_deviance', 'neg_brier_score', 'mutual_info_score'}, a callable or None. Got 'mae' instead.
-# ~ (sklearn_etc)
+# ~ scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
+# ~ print(scores)   
+# ~ print(scores.mean())   
 
 
 
