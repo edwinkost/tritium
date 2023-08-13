@@ -70,7 +70,7 @@ print(mae)
 # cross validation - with LeavePOut
 X = predictors
 y = target
-leaveout = LeavePOut(2) # taking p=2
+leaveout = LeavePOut(9) # taking p=2
 leaveout.get_n_splits(X) # Number of splits of X
 
 # Printing the Train & Test Indices of splits
