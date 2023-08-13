@@ -14,7 +14,7 @@ from sklearn.model_selection import cross_val_score
 
 
 # calculate performance values
-def calculate_performance(predictors, target):
+def calculate_performance(predictors, target, mlr_model):
 
     predictions = mlr_model.predict(predictors)
     
@@ -115,11 +115,11 @@ for train_index, test_index in leaveout.split(predictors):
    coef_train = mlr_model.coef_
 
    # get the performance based on the train data
-   r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train)
+   r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train, mlr_model)
    print(r_squared_train, adj_r_squared_train, rmse_train, mae_train)    
 
    # get the performance based on the test data
-   r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test)    
+   r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test, mlr_model)    
    print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
    
    if i == 50: break
