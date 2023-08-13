@@ -12,6 +12,23 @@ from sklearn.model_selection import LeavePOut
 
 from sklearn.model_selection import cross_val_score
 
+
+# calculate performance values
+def calculate_performance(predictors, target):
+    # - r squared and adj_r_squared
+    r_squared     = mlr_model.score(predictors, target)
+    adj_r_squared = 1 - (1-r_squared)*(len(target)-1)/(len(target)-predictors.shape[1]-1)
+    # ~ print(r_squared)
+    # ~ print(adj_r_squared)
+    # - rmse and mae
+    predictions = mlr_model.predict(predictors)
+    rmse        = (mean_squared_error(target, predictions))**0.5
+    mae         = mean_absolute_error(target, predictions)
+    # ~ print(rmse)
+    # ~ print(mae)
+    
+    return r_squared, adj_r_squared, rmse, mae 
+
 # read dataset
 # ~ dataset = pd.read_csv("../datasets/version_20230808/dataset_selected_20230808.csv", sep = ";")
 # -- using the new dataset from Jaivime
@@ -107,21 +124,6 @@ for train_index, test_index in leaveout.split(predictors):
     
    
    
-# calculate performance values
-def calculate_performance(predictors, target):
-    # - r squared and adj_r_squared
-    r_squared     = mlr_model.score(predictors, target)
-    adj_r_squared = 1 - (1-r_squared)*(len(target)-1)/(len(target)-predictors.shape[1]-1)
-    # ~ print(r_squared)
-    # ~ print(adj_r_squared)
-    # - rmse and mae
-    predictions = mlr_model.predict(predictors)
-    rmse        = (mean_squared_error(target, predictions))**0.5
-    mae         = mean_absolute_error(target, predictions)
-    # ~ print(rmse)
-    # ~ print(mae)
-    
-    return r_squared, adj_r_squared, rmse, mae 
 
    
    # ~ X_train, X_test = X[train_index], X[test_index]
