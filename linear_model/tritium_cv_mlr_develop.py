@@ -83,7 +83,7 @@ print(r_squared_all, adj_r_squared_all, rmse_all, mae_all)
 
 
 # cross validation - with LeavePOut
-leaveout = LeavePOut(20)
+leaveout = LeavePOut(22)
 
 # make splits
 leaveout.get_n_splits(predictors)
