@@ -98,14 +98,14 @@ for train_index, test_index in leaveout.split(predictors):
    predictors_train["pet_p_ratio"]         = predictors["pet_p_ratio"][train_index]
    predictors_train["dwt_m"]               = predictors["dwt_m"][train_index]
    predictors_train["multiplicative_term"] = predictors["multiplicative_term"][train_index]
-   target_train                            = target               
+   target_train                            = target[train_index]               
    
    # test dataset
    predictors_test = pd.DataFrame()
    predictors_test["pet_p_ratio"]          = predictors["pet_p_ratio"][test_index]
    predictors_test["dwt_m"]                = predictors["dwt_m"][test_index]
    predictors_test["multiplicative_term"]  = predictors["multiplicative_term"][test_index]
-   target_test                             = target               
+   target_test                             = target[test_index]               
 
    # fit the model using the train dataset
    mlr_model.fit(predictors_train, target_train)
@@ -113,7 +113,7 @@ for train_index, test_index in leaveout.split(predictors):
    coef_train = mlr_model.coef_
 
    # get the performance based on the train data
-   r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_test, target_test)
+   r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train)
    print(r_squared_train, adj_r_squared_train, rmse_train, mae_train)    
 
    # get the performance based on the test data
