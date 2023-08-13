@@ -68,13 +68,17 @@ print(mae)
 
 
 # cross validation - with LeavePOut
-lpo = LeavePOut(p = 9)
-lpo.get_n_splits(predictors) 
+X = predictors
+y = target
+leaveout = LeavePOut(2) # taking p=2
+leaveout.get_n_splits(X) # Number of splits of X
 
-for train_index, test_index in lpo.split(predictors): 
+# Printing the Train & Test Indices of splits
+for train_index, test_index in leaveout.split(X): 
    print("TRAIN:", train_index, "TEST:", test_index)
    X_train, X_test = X[train_index], X[test_index]
    Y_train, Y_test = Y[train_index], Y[test_index]
+
 
 
 # ~ # cross validation - I don't trust this
