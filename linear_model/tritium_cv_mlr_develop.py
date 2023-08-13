@@ -74,9 +74,9 @@ leaveout = LeavePOut(9) # taking p=2
 leaveout.get_n_splits(X) # Number of splits of X
 
 for train_index, test_index in leaveout.split(X): 
-   print("TRAIN:", train_index, "TEST:", test_index)
+   # ~ print("TRAIN:", train_index, "TEST:", test_index)
 
-   pring(X[train_index])
+   print(X[train_index])
    
    # ~ X_train, X_test = X[train_index], X[test_index]
    # ~ Y_train, Y_test = Y[train_index], Y[test_index]
