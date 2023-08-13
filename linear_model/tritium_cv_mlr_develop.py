@@ -14,9 +14,9 @@ from sklearn.model_selection import cross_val_score
 
 
 # calculate performance values
-def calculate_performance(predictors, target, mlr_model):
+def calculate_performance(predictors, target, model):
 
-    predictions = mlr_model.predict(predictors)
+    predictions = model.predict(predictors)
     
     # - r squared and adj_r_squared
     r_squared     = r2_score(target, predictions)
