@@ -29,6 +29,8 @@ def calculate_performance(predictors, target, model):
     # ~ print(rmse)
     # ~ print(mae)
     
+    # ~ print(predictions, target)
+    
     return r_squared, adj_r_squared, rmse, mae 
 
 # read dataset
@@ -114,8 +116,8 @@ for train_index, test_index in leaveout.split(predictors):
    del mlr_model_train
    mlr_model_train = LinearRegression()
    mlr_model_train.fit(predictors_train, target_train)
-   intr_train = mlr_model.intercept_
-   coef_train = mlr_model.coef_
+   intr_train = mlr_model_train.intercept_
+   coef_train = mlr_model_train.coef_
 
    # get the performance based on the train data
    r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train, mlr_model_train)
