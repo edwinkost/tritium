@@ -110,16 +110,16 @@ for train_index, test_index in leaveout.split(predictors):
    target_test                             = target[test_index]               
 
    # fit the model using the train dataset
-   mlr_model.fit(predictors_train, target_train)
+   mlr_model_train.fit(predictors_train, target_train)
    intr_train = mlr_model.intercept_
    coef_train = mlr_model.coef_
 
    # get the performance based on the train data
-   r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train, mlr_model)
+   r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train, mlr_model_train)
    print(r_squared_train, adj_r_squared_train, rmse_train, mae_train)    
 
    # get the performance based on the test data
-   r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test, mlr_model)    
+   r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test, mlr_model_train)    
    print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
    
    if i == 50: break
