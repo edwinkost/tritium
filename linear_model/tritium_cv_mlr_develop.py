@@ -78,8 +78,8 @@ for train_index, test_index in leaveout.split(predictors):
 
    # train dataset
    predictors_train = pd.DataFrame()
-   predictors_train["pet_p_ratio"]         = predictors["pet_p"][train_index]
-   predictors_train["dwt_m"]               = predictors["dwt"][train_index]
+   predictors_train["pet_p_ratio"]         = predictors["pet_p_ratio"][train_index]
+   predictors_train["dwt_m"]               = predictors["dwt_m"][train_index]
    predictors_train["multiplicative_term"] = predictors["multiplicative_term"][train_index]
    
    print(predictors_train)
