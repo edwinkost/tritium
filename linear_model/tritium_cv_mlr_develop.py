@@ -127,7 +127,7 @@ for train_index, test_index in leaveout.split(predictors):
    r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test, mlr_model_train)    
    print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
    
-   if i == 50: break
+   if i == 1: break
     
    
    
