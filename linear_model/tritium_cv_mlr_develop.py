@@ -110,6 +110,8 @@ for train_index, test_index in leaveout.split(predictors):
    target_test                             = target[test_index]               
 
    # fit the model using the train dataset
+   mlr_model_train = None
+   del mlr_model_train
    mlr_model_train = LinearRegression()
    mlr_model_train.fit(predictors_train, target_train)
    intr_train = mlr_model.intercept_
