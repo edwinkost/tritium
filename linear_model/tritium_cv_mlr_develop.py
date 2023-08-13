@@ -68,18 +68,22 @@ print(mae)
 
 
 # cross validation - with LeavePOut
-X = predictors
-y = target
-leaveout = LeavePOut(9) # taking p=2
-leaveout.get_n_splits(X) # Number of splits of X
-print(leaveout.get_n_splits(X))
+leaveout = LeavePOut(9)
 
-print(X)
+# ~ # number of splits
+# ~ print(leaveout.get_n_splits(predictors))
 
-for train_index, test_index in leaveout.split(X): 
+for train_index, test_index in leaveout.split(predictors): 
    # ~ print("TRAIN:", train_index, "TEST:", test_index)
 
-   print(X[train_index])
+   # train dataset
+   predictors_train = pd.DataFrame()
+   predictors_train["pet_p_ratio"]         = predictors["pet_p"][train_index]
+   predictors_train["dwt_m"]               = predictors["dwt"][train_index]
+   predictors_train["multiplicative_term"] = predictors["multiplicative_term"][train_index]
+   
+   print(predictors_train)
+
    
    # ~ X_train, X_test = X[train_index], X[test_index]
    # ~ Y_train, Y_test = Y[train_index], Y[test_index]
