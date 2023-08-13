@@ -83,7 +83,7 @@ for train_index, test_index in leaveout.split(predictors):
    predictors_train["dwt_m"]               = predictors["dwt_m"][train_index]
    predictors_train["multiplicative_term"] = predictors["multiplicative_term"][train_index]
    
-   # ~ print(predictors_train)
+   print(predictors_train)
 
    
    # ~ X_train, X_test = X[train_index], X[test_index]
