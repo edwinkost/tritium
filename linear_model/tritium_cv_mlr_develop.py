@@ -61,7 +61,7 @@ r_squared_all, adj_r_squared_all, rmse_all, mae_all = calculate_performance(pred
 
 
 # cross validation - with LeavePOut
-leaveout = LeavePOut(9)
+leaveout = LeavePOut(10)
 
 # make splits
 leaveout.get_n_splits(predictors)
