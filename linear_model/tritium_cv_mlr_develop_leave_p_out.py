@@ -29,7 +29,7 @@ def calculate_performance(predictors, target, model):
     # ~ print(rmse)
     # ~ print(mae)
     
-    print(np.array(predictions), np.array(target))
+    # ~ print(np.array(predictions), np.array(target))
     
     return r_squared, adj_r_squared, rmse, mae 
 
