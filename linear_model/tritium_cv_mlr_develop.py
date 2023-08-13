@@ -19,7 +19,7 @@ def calculate_performance(predictors, target, model):
     predictions = np.array(model.predict(predictors))
     
     # - r squared and adj_r_squared
-    r_squared     = np.corrcoef(target, predictions)[0,1]
+    r_squared     = np.corrcoef(target, predictions)[0,1]**2.0
     adj_r_squared = 1 - (1-r_squared)*(len(target)-1)/(len(target)-predictors.shape[1]-1)
     # ~ print(r_squared)
     # ~ print(adj_r_squared)
