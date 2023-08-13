@@ -96,8 +96,8 @@ y_train = target
 # ~ folds = leaveout
 folds = LeaveOneOut()
 scores = cross_val_score(lm, X_train, y_train, scoring='neg_mean_absolute_error', cv=folds)
-print(scores)   
-print(scores.mean())   
+print(-scores)   
+print(-scores.mean())   
 
 
 # ~ folds = KFold(n_splits = 5, shuffle = True, random_state = 100)
