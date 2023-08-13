@@ -153,3 +153,14 @@ for train_index, test_index in leaveout.split(predictors):
 
 
 
+# ~ # Create StratifiedKFold object.
+# ~ skf = StratifiedKFold(n_splits=10, shuffle=True, random_state=1)
+# ~ lst_accu_stratified = []
+  
+# ~ for train_index, test_index in skf.split(x, y):
+    # ~ x_train_fold, x_test_fold = x_scaled[train_index], x_scaled[test_index]
+    # ~ y_train_fold, y_test_fold = y[train_index], y[test_index]
+    # ~ lr.fit(x_train_fold, y_train_fold)
+    # ~ lst_accu_stratified.append(lr.score(x_test_fold, y_test_fold))
+    
+    
