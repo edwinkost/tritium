@@ -99,17 +99,21 @@ for train_index, test_index in leaveout.split(predictors):
    # ~ print("TRAIN:", train_index, "TEST:", test_index)
 
    # train dataset
+   predictors_train = None
    predictors_train = pd.DataFrame()
    predictors_train["pet_p_ratio"]         = predictors["pet_p_ratio"][train_index]
    predictors_train["dwt_m"]               = predictors["dwt_m"][train_index]
    predictors_train["multiplicative_term"] = predictors["multiplicative_term"][train_index]
+   target_train     = None
    target_train                            = target[train_index]               
    
    # test dataset
+   predictors_test = None
    predictors_test = pd.DataFrame()
    predictors_test["pet_p_ratio"]          = predictors["pet_p_ratio"][test_index]
    predictors_test["dwt_m"]                = predictors["dwt_m"][test_index]
    predictors_test["multiplicative_term"]  = predictors["multiplicative_term"][test_index]
+   target_test     = None
    target_test                             = target[test_index]               
 
    # fit the model using the train dataset
