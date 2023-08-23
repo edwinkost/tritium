@@ -90,7 +90,8 @@ print("")
 
 
 # cross validation - leave one out (using LeavePOut and with p = 1)
-leaveout = LeavePOut(3)
+leaveout = LeavePOut(1)
+# ~ leaveout = LeavePOut(3)
 
 # make splits
 leaveout.get_n_splits(predictors)
