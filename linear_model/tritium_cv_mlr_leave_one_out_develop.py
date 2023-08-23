@@ -97,19 +97,25 @@ leaveout.get_n_splits(predictors)
 
 # table/data frame for storing cross validation results
 cross_val_df = pd.DataFrame(\
-                             {'Courses' : pd.Series(dtype='float'),
-                             'Fee'      : pd.Series(dtype='float'),
-                             'Duration' : pd.Series(dtype='float'),
-                             'Discount' : pd.Series(dtype='float')
+                             {
+                              'i'                   : pd.Series(dtype='int'),
+                              'intercept'           : pd.Series(dtype='float'),
+                              'reg_coef_1'          : pd.Series(dtype='float'),
+                              'reg_coef_2'          : pd.Series(dtype='float'),
+                              'reg_coef_3'          : pd.Series(dtype='float'),
+                              'r_squared_train'     : pd.Series(dtype='float'),
+                              'adj_r_squared_train' : pd.Series(dtype='float'),
+                              'rmse_train_train'    : pd.Series(dtype='float'),
+                              'mae_train_train'     : pd.Series(dtype='float'),
+                              'r_squared_test'      : pd.Series(dtype='float'),
+                              'adj_r_squared_test'  : pd.Series(dtype='float'),
+                              'rmse_train_test'     : pd.Series(dtype='float'),
+                              'mae_train_test'      : pd.Series(dtype='float'),
                              })
-# ~ print(df.dtypes)
 
 
-cross_validation_results = pd.DataFrame(\
-                                        
-                                        
-                                        )
-
+# perform cross validation
+i = 0
 for train_index, test_index in leaveout.split(predictors): 
 
    i = i + 1
@@ -143,16 +149,36 @@ for train_index, test_index in leaveout.split(predictors):
    intr_train = mlr_model_train.intercept_
    coef_train = mlr_model_train.coef_
    
-   print(intr_train)
-   print(coef_train)
+   # ~ print(intr_train)
+   # ~ print(coef_train)
 
    # get the performance based on the train data
    r_squared_train, adj_r_squared_train, rmse_train, mae_train = calculate_performance(predictors_train, target_train, mlr_model_train)
-   print(r_squared_train, adj_r_squared_train, rmse_train, mae_train)    
+   # ~ print(r_squared_train, adj_r_squared_train, rmse_train, mae_train)    
 
    # get the performance based on the test data
    r_squared_test, adj_r_squared_test, rmse_test, mae_test = calculate_performance(predictors_test, target_test, mlr_model_train)    
-   print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
+   # ~ print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
    
+   # add the result to the data frame
+   new_row = None
+   del new_row
+   new_row = {
+                              'i'                   : i,
+                              'intercept'           : intr_train,
+                              'reg_coef_1'          : coef_train[0],
+                              'reg_coef_2'          : coef_train[1],
+                              'reg_coef_3'          : coef_train[2],
+                              'r_squared_train'     : r_squared_train,
+                              'adj_r_squared_train' : adj_r_squared_train,
+                              'rmse_train_train'    : rmse_train,
+                              'mae_train_train'     : mae_train,
+                              'r_squared_test'      : r_squared_test,
+                              'adj_r_squared_test'  : adj_r_squared_test,
+                              'rmse_train_test'     : rmse_test,
+                              'mae_train_test'      : mae_test,
+                             }
+   print(new_row)                          
+
     
     
