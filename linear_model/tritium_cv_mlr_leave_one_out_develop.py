@@ -96,7 +96,7 @@ leaveout = LeavePOut(1)
 # make splits
 leaveout.get_n_splits(predictors)
 
-# table/data frame for storing cross validation results
+# table/data frame for storing the cross validation result
 cross_val_df = pd.DataFrame(\
                              {
                               'i'                   : pd.Series(dtype='int'),
@@ -162,40 +162,43 @@ for train_index, test_index in leaveout.split(predictors):
    # ~ print(r_squared_test, adj_r_squared_test, rmse_test, mae_test)    
    
    # add the result to the data frame
-   new_row = None
-   del new_row
-   # ~ new_row = {
-                              # ~ 'i'                   : i,
-                              # ~ 'intercept'           : intr_train,
-                              # ~ 'reg_coef_1'          : coef_train[0],
-                              # ~ 'reg_coef_2'          : coef_train[1],
-                              # ~ 'reg_coef_3'          : coef_train[2],
-                              # ~ 'r_squared_train'     : r_squared_train,
-                              # ~ 'adj_r_squared_train' : adj_r_squared_train,
-                              # ~ 'rmse_train_train'    : rmse_train,
-                              # ~ 'mae_train_train'     : mae_train,
-                              # ~ 'r_squared_test'      : r_squared_test,
-                              # ~ 'adj_r_squared_test'  : adj_r_squared_test,
-                              # ~ 'rmse_train_test'     : rmse_test,
-                              # ~ 'mae_train_test'      : mae_test,
-                             # ~ }
-   new_row = list[\
-                  i,
-                  intr_train,
-                  coef_train[0],
-                  coef_train[1],
-                  coef_train[2],
-                  r_squared_train,
-                  adj_r_squared_train,
-                  rmse_train,
-                  mae_train,
-                  r_squared_test,
-                  adj_r_squared_test,
-                  rmse_test,
-                  mae_test,
-                  ]
-   print(new_row)
-   cross_val_df[i-1,:] = new_row
+   
+   if i == 1:
+      cross_val_df = pd.DataFrame(\
+                                   {
+                                    'i'                   : i,
+                                    'intercept'           : intr_train,
+                                    'reg_coef_1'          : coef_train[0],
+                                    'reg_coef_2'          : coef_train[1],
+                                    'reg_coef_3'          : coef_train[2],
+                                    'r_squared_train'     : r_squared_train,
+                                    'adj_r_squared_train' : adj_r_squared_train
+                                    'rmse_train_train'    : rmse_train,
+                                    'mae_train_train'     : mae_train,
+                                    'r_squared_test'      : r_squared_test,
+                                    'adj_r_squared_test'  : adj_r_squared_test,
+                                    'rmse_train_test'     : rmse_test,
+                                    'mae_train_test'      : mae_test
+                                   })
+   else:                                
+      new_row = None
+      del new_row
+      new_row = {
+                                 'i'                   : i,
+                                 'intercept'           : intr_train,
+                                 'reg_coef_1'          : coef_train[0],
+                                 'reg_coef_2'          : coef_train[1],
+                                 'reg_coef_3'          : coef_train[2],
+                                 'r_squared_train'     : r_squared_train,
+                                 'adj_r_squared_train' : adj_r_squared_train,
+                                 'rmse_train_train'    : rmse_train,
+                                 'mae_train_train'     : mae_train,
+                                 'r_squared_test'      : r_squared_test,
+                                 'adj_r_squared_test'  : adj_r_squared_test,
+                                 'rmse_train_test'     : rmse_test,
+                                 'mae_train_test'      : mae_test
+                                }
+      cross_val_df.append(new_row, ignore_index = True)                         
                              
    # ~ if i == 0: break
 
