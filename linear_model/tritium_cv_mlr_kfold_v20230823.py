@@ -58,6 +58,9 @@ print("avg_pet_p_ratio and avg_dwt_m")
 print(avg_pet_p_ratio)
 print(avg_dwt_m)
 print("")
+# - using the average values from Jaivime (R code, note these values are very much the same as above)
+avg_pet_p_ratio = 
+avg_dwt_m       = 
 # - using the centered values
 multiplicative_term = (predictors["pet_p_ratio"] - avg_pet_p_ratio) * (predictors["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
@@ -93,7 +96,7 @@ print("")
 
 # cross validation
 # - using RepeatedKFold (see e.g. https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RepeatedKFold.html#sklearn.model_selection.RepeatedKFold)
-cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 10000, random_state = 23082023)
+cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 1000, random_state = 20230823)
 
 
 # make splits
@@ -186,8 +189,8 @@ for train_index, test_index in cross_validation_method.split(predictors, target)
    print(new_row)
    cross_val_df.loc[len(cross_val_df)] = new_row                         
                              
-   # ~ if i == 10000: break
+   if i == 1: break
 
 # write data frame to a csv file
-cross_val_df.to_csv("cv_result_kfold_10000.csv", index = False)  
+cross_val_df.to_csv("cv_result_kfold_v20230823_1000.csv", index = False)  
 

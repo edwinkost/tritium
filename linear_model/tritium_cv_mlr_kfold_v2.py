@@ -58,6 +58,9 @@ print("avg_pet_p_ratio and avg_dwt_m")
 print(avg_pet_p_ratio)
 print(avg_dwt_m)
 print("")
+# - using the average values from Jaivime (R code, note these values are very much the same as above)
+avg_pet_p_ratio = 
+avg_dwt_m       = 
 # - using the centered values
 multiplicative_term = (predictors["pet_p_ratio"] - avg_pet_p_ratio) * (predictors["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
@@ -189,5 +192,5 @@ for train_index, test_index in cross_validation_method.split(predictors, target)
    # ~ if i == 10000: break
 
 # write data frame to a csv file
-cross_val_df.to_csv("cv_result_kfold_10000.csv", index = False)  
+cross_val_df.to_csv("cv_result_kfold_10000_v2.csv", index = False)  
 
