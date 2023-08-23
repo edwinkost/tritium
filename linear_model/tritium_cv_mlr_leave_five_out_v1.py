@@ -180,10 +180,11 @@ for train_index, test_index in leaveout.split(predictors):
                'rmse_train_test'        : rmse_test,
                'mae_train_test'         : mae_test
               }
-   # ~ print(new_row)
+   print(new_row)
    cross_val_df.loc[len(cross_val_df)] = new_row                         
                              
-   if i == 10000: break
+   # ~ if i == 10000: break
 
 # write data frame to a csv file
-cross_val_df.to_csv("cv_result_leave_five_out_10000.csv", index = False)  
+cross_val_df.to_csv("cv_result_leave_five_out_all.csv", index = False)  
+# ~ cross_val_df.to_csv("cv_result_leave_five_out_10000.csv", index = False)  
