@@ -100,7 +100,7 @@ cross_val_df = pd.DataFrame(\
                              {'Courses' : pd.Series(dtype='float'),
                              'Fee'      : pd.Series(dtype='float'),
                              'Duration' : pd.Series(dtype='float'),
-                             'Discount' : pd.Series(dtype='dloat')
+                             'Discount' : pd.Series(dtype='float')
                              })
 # ~ print(df.dtypes)
 
