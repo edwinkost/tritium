@@ -195,7 +195,7 @@ for train_index, test_index in leaveout.split(predictors):
                   mae_test,
                   ]
    print(new_row)
-   cross_val_df.loc[len(cross_val_df)] = new_row
+   cross_val_df.loc[i-1] = new_row
                              
    # ~ if i == 0: break
 
