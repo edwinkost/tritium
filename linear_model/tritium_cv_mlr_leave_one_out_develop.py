@@ -73,7 +73,7 @@ mlr_model = LinearRegression()
 mlr_model.fit(predictors, target)
 
 # intercept and regression coefficients
-print("intercept and regression coefficients (using all data))
+print("intercept and regression coefficients (using all data)")
 print(mlr_model.intercept_)
 print(mlr_model.coef_)
 print(type(mlr_model.intercept_))
