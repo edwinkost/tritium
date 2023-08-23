@@ -97,7 +97,7 @@ print("")
 cross_validation_method = StratifiedKFold(5)
 
 # make splits
-cross_validation_method.get_n_splits(predictors)
+cross_validation_method.get_n_splits(predictors, target)
 
 # table/data frame for storing the cross validation result
 cross_val_df = pd.DataFrame(\
