@@ -117,8 +117,8 @@ cross_val_df = pd.DataFrame(\
                               'reg_coef_3'          : pd.Series(dtype='float'),
                               'r_squared_train'     : pd.Series(dtype='float'),
                               'adj_r_squared_train' : pd.Series(dtype='float'),
-                              'rmse_train_train'    : pd.Series(dtype='float'),
-                              'mae_train_train'     : pd.Series(dtype='float'),
+                              'rmse_train'          : pd.Series(dtype='float'),
+                              'mae_train'           : pd.Series(dtype='float'),
                               'r_squared_test'      : pd.Series(dtype='float'),
                               'adj_r_squared_test'  : pd.Series(dtype='float'),
                               'rmse_train_test'     : pd.Series(dtype='float'),
@@ -199,3 +199,4 @@ for train_index, test_index in cross_validation_method.split(predictors, target)
 # write data frame to a csv file
 cross_val_df.to_csv("cv_result_kfold_v20230823_1000.csv", index = False)  
 
+# TODO: plot the histogram (see e.g. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.hist.html)
