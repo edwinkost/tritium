@@ -95,7 +95,7 @@ print("")
 # ~ leaveout = LeavePOut(1)
 # ~ leaveout = LeavePOut(3)
 # ~ leaveout = LeavePOut(5)
-cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 100, random_state=2652124)
+cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 10000, random_state = 23082023)
 
 # make splits
 cross_validation_method.get_n_splits(predictors, target)
