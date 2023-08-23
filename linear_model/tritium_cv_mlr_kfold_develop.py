@@ -121,7 +121,7 @@ cross_val_df = pd.DataFrame(\
 # perform cross validation
 i = 0
 # ~ for train_index, test_index in cross_validation_method.split(predictors, target): 
-for fold, (train_index, test_index) in cross_validation_method(skfolds.split(X, y)):
+for fold, (train_index, test_index) in enumerate(cross_validation_method.split(predictors, target)):
 
    i = i + 1
    print(i)
