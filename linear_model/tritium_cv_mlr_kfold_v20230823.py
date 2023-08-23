@@ -58,9 +58,10 @@ print("avg_pet_p_ratio and avg_dwt_m")
 print(avg_pet_p_ratio)
 print(avg_dwt_m)
 print("")
-# - using the average values from Jaivime (R code, note these values are very much the same as above)
-avg_pet_p_ratio = 
-avg_dwt_m       = 
+
+# ~ # - using the average values from Jaivime (R code, note these values are very much the same as above)
+# ~ avg_pet_p_ratio = 
+# ~ avg_dwt_m       = 
 # - using the centered values
 multiplicative_term = (predictors["pet_p_ratio"] - avg_pet_p_ratio) * (predictors["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
