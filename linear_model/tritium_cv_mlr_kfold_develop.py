@@ -7,6 +7,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, mean_absolute_error, r2_score
 
 from sklearn.model_selection import KFold
+from sklearn.model_selection import RepeatedKFold
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import LeaveOneOut
 from sklearn.model_selection import LeavePOut
@@ -94,7 +95,7 @@ print("")
 # ~ leaveout = LeavePOut(1)
 # ~ leaveout = LeavePOut(3)
 # ~ leaveout = LeavePOut(5)
-cross_validation_method = StratifiedKFold(5)
+cross_validation_method = RepeatedKFold(5, 100)
 
 # make splits
 cross_validation_method.get_n_splits(predictors, target)
@@ -120,8 +121,8 @@ cross_val_df = pd.DataFrame(\
 
 # perform cross validation
 i = 0
-# ~ for train_index, test_index in cross_validation_method.split(predictors, target): 
-for fold, (train_index, test_index) in enumerate(cross_validation_method.split(predictors, target)):
+for train_index, test_index in cross_validation_method.split(predictors, target): 
+# ~ for fold, (train_index, test_index) in enumerate(cross_validation_method.split(predictors, target)):
 
    i = i + 1
    print(i)
