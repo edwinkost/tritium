@@ -101,8 +101,8 @@ print("")
 
 # cross validation
 # - using RepeatedKFold (see e.g. https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.RepeatedKFold.html#sklearn.model_selection.RepeatedKFold)
-cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 1000, random_state = 20230823)
-
+# ~ cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 1000, random_state = 20230823)
+cross_validation_method = RepeatedKFold(n_splits = 5, n_repeats = 20000, random_state = 20230823)
 
 # make splits
 cross_validation_method.get_n_splits(predictors, target)
@@ -197,6 +197,7 @@ for train_index, test_index in cross_validation_method.split(predictors, target)
    # ~ if i == 1: break
 
 # write data frame to a csv file
-cross_val_df.to_csv("cv_result_kfold_v20230823_1000.csv", index = False)  
+# ~ cross_val_df.to_csv("cv_result_kfold_v20230823_1000.csv", index = False)  
+cross_val_df.to_csv("cv_result_kfold_v20230823_20000.csv", index = False)  
 
 # TODO: plot the histogram (see e.g. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.hist.html)
