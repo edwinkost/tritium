@@ -121,8 +121,8 @@ cross_val_df = pd.DataFrame(\
                               'mae_train'           : pd.Series(dtype='float'),
                               'r_squared_test'      : pd.Series(dtype='float'),
                               'adj_r_squared_test'  : pd.Series(dtype='float'),
-                              'rmse_train_test'     : pd.Series(dtype='float'),
-                              'mae_train_test'      : pd.Series(dtype='float'),
+                              'rmse_test'           : pd.Series(dtype='float'),
+                              'mae_test'            : pd.Series(dtype='float'),
                              })
 
 
