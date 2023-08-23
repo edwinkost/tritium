@@ -29,7 +29,7 @@ def calculate_performance(predictors, target_input, model_input):
     # ~ print(rmse)
     # ~ print(mae)
     
-    print(predictions, target_input)
+    # ~ print(predictions, target_input)
     
     return r_squared, adj_r_squared, rmse, mae 
 
@@ -76,8 +76,8 @@ mlr_model.fit(predictors, target)
 print("intercept and regression coefficients (using all data)")
 print(mlr_model.intercept_)
 print(mlr_model.coef_)
-print(type(mlr_model.intercept_))
-print(type(mlr_model.coef_))
+# ~ print(type(mlr_model.intercept_))
+# ~ print(type(mlr_model.coef_))
 print("")
 # ~ -17.82419356404767
 # ~ [ 3.91379777  0.36500267 -0.08373464]
