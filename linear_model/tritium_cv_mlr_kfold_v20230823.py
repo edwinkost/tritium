@@ -88,8 +88,9 @@ print(mlr_model.coef_)
 # ~ print(type(mlr_model.intercept_))
 # ~ print(type(mlr_model.coef_))
 print("")
-# ~ -17.82419356404767
-# ~ [ 3.91379777  0.36500267 -0.08373464]
+# ~ intercept and regression coefficients (using all data)
+# ~ -17.824228930512973
+# ~ [ 3.91379777  0.36500297 -0.08373464]
 
 # get performance values
 r_squared_all, adj_r_squared_all, rmse_all, mae_all = calculate_performance(predictors, target, mlr_model) 
@@ -193,7 +194,7 @@ for train_index, test_index in cross_validation_method.split(predictors, target)
    print(new_row)
    cross_val_df.loc[len(cross_val_df)] = new_row                         
                              
-   if i == 1: break
+   # ~ if i == 1: break
 
 # write data frame to a csv file
 cross_val_df.to_csv("cv_result_kfold_v20230823_1000.csv", index = False)  
