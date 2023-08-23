@@ -164,8 +164,7 @@ for train_index, test_index in leaveout.split(predictors):
    # add the result to the data frame
    
    if i == 1:
-      cross_val_df = pd.DataFrame(\
-                                   {
+      cross_val_df = pd.DataFrame({
                                     'i'                   : i,
                                     'intercept'           : intr_train,
                                     'reg_coef_1'          : coef_train[0],
