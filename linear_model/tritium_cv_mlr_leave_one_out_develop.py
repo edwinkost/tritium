@@ -172,7 +172,7 @@ for train_index, test_index in leaveout.split(predictors):
                                     'reg_coef_2'          : coef_train[1],
                                     'reg_coef_3'          : coef_train[2],
                                     'r_squared_train'     : r_squared_train,
-                                    'adj_r_squared_train' : adj_r_squared_train
+                                    'adj_r_squared_train' : adj_r_squared_train,
                                     'rmse_train_train'    : rmse_train,
                                     'mae_train_train'     : mae_train,
                                     'r_squared_test'      : r_squared_test,
