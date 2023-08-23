@@ -163,7 +163,7 @@ for train_index, test_index in leaveout.split(predictors):
    
    # add the result to the data frame
    
-   if i == 1:
+   if i == 0:
       cross_val_df = pd.DataFrame({
                                     'i'                   : [i],
                                     'intercept'           : [intr_train],
@@ -183,24 +183,23 @@ for train_index, test_index in leaveout.split(predictors):
       new_row = None
       del new_row
       new_row = {
-                                 'i'                   : i,
-                                 'intercept'           : intr_train,
-                                 'reg_coef_1'          : coef_train[0],
-                                 'reg_coef_2'          : coef_train[1],
-                                 'reg_coef_3'          : coef_train[2],
-                                 'r_squared_train'     : r_squared_train,
-                                 'adj_r_squared_train' : adj_r_squared_train,
-                                 'rmse_train_train'    : rmse_train,
-                                 'mae_train_train'     : mae_train,
-                                 'r_squared_test'      : r_squared_test,
-                                 'adj_r_squared_test'  : adj_r_squared_test,
-                                 'rmse_train_test'     : rmse_test,
-                                 'mae_train_test'      : mae_test
-                                }
+                  'i'                      : i,
+                  'intercept'              : intr_train,
+                  'reg_coef_1'             : coef_train[0],
+                  'reg_coef_2'             : coef_train[1],
+                  'reg_coef_3'             : coef_train[2],
+                  'r_squared_train'        : r_squared_train,
+                  'adj_r_squared_train'    : adj_r_squared_train,
+                  'rmse_train_train'       : rmse_train,
+                  'mae_train_train'        : mae_train,
+                  'r_squared_test'         : r_squared_test,
+                  'adj_r_squared_test'     : adj_r_squared_test,
+                  'rmse_train_test'        : rmse_test,
+                  'mae_train_test'         : mae_test
+                 }
       cross_val_df.loc[len(cross_val_df)] = new_row                         
                              
    # ~ if i == 0: break
 
 # write data frame to a text file
-cross_val_df.to_csv("cv_result.csv")
-    
+cross_val_df.to_csv("cv_result.csv", index = False)  
