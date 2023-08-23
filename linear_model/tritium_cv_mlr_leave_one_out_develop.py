@@ -164,23 +164,38 @@ for train_index, test_index in leaveout.split(predictors):
    # add the result to the data frame
    new_row = None
    del new_row
-   new_row = {
-                              'i'                   : i,
-                              'intercept'           : intr_train,
-                              'reg_coef_1'          : coef_train[0],
-                              'reg_coef_2'          : coef_train[1],
-                              'reg_coef_3'          : coef_train[2],
-                              'r_squared_train'     : r_squared_train,
-                              'adj_r_squared_train' : adj_r_squared_train,
-                              'rmse_train_train'    : rmse_train,
-                              'mae_train_train'     : mae_train,
-                              'r_squared_test'      : r_squared_test,
-                              'adj_r_squared_test'  : adj_r_squared_test,
-                              'rmse_train_test'     : rmse_test,
-                              'mae_train_test'      : mae_test,
-                             }
+   # ~ new_row = {
+                              # ~ 'i'                   : i,
+                              # ~ 'intercept'           : intr_train,
+                              # ~ 'reg_coef_1'          : coef_train[0],
+                              # ~ 'reg_coef_2'          : coef_train[1],
+                              # ~ 'reg_coef_3'          : coef_train[2],
+                              # ~ 'r_squared_train'     : r_squared_train,
+                              # ~ 'adj_r_squared_train' : adj_r_squared_train,
+                              # ~ 'rmse_train_train'    : rmse_train,
+                              # ~ 'mae_train_train'     : mae_train,
+                              # ~ 'r_squared_test'      : r_squared_test,
+                              # ~ 'adj_r_squared_test'  : adj_r_squared_test,
+                              # ~ 'rmse_train_test'     : rmse_test,
+                              # ~ 'mae_train_test'      : mae_test,
+                             # ~ }
+   new_row = list[\
+                  i,
+                  intr_train,
+                  coef_train[0],
+                  coef_train[1],
+                  coef_train[2],
+                  r_squared_train,
+                  adj_r_squared_train,
+                  rmse_train,
+                  mae_train,
+                  r_squared_test,
+                  adj_r_squared_test,
+                  rmse_test,
+                  mae_test,
+                  ]
    print(new_row)
-   cross_val_df.append(new_row, ignore_index = True)
+   cross_val_df.loc[len(cross_val_df)] = new_row
                              
    # ~ if i == 0: break
 
