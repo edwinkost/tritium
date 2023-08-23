@@ -52,6 +52,10 @@ predictors["dwt_m"]       = dataset["dwt"]
 # - calculate the average values of predictor variables
 avg_pet_p_ratio = predictors["pet_p_ratio"].mean()
 avg_dwt_m       = predictors["dwt_m"].mean()
+print("avg_pet_p_ratio and avg_dwt_m")
+print(avg_pet_p_ratio)
+print(avg_dwt_m)
+print("")
 # - using the centered values
 multiplicative_term = (predictors["pet_p_ratio"] - avg_pet_p_ratio) * (predictors["dwt_m"] - avg_dwt_m)
 predictors["multiplicative_term"] = multiplicative_term
@@ -69,36 +73,36 @@ mlr_model = LinearRegression()
 mlr_model.fit(predictors, target)
 
 # intercept and regression coefficients
+print("intercept and regression coefficients (using all data))
 print(mlr_model.intercept_)
 print(mlr_model.coef_)
+print(type(mlr_model.intercept_))
+print(type(mlr_model.coef_))
+print("")
 # ~ -17.82419356404767
 # ~ [ 3.91379777  0.36500267 -0.08373464]
-intr_all = mlr_model.intercept_
-coef_all = mlr_model.coef_
 
 # get performance values
 r_squared_all, adj_r_squared_all, rmse_all, mae_all = calculate_performance(predictors, target, mlr_model) 
+print("r_squared_all, adj_r_squared_all, rmse_all, mae_all")   
 print(r_squared_all, adj_r_squared_all, rmse_all, mae_all)   
+print("")
 
 
-
-# cross validation - with LeavePOut and with p = 1
+# cross validation - leave one out (using LeavePOut and with p = 1)
 leaveout = LeavePOut(1)
 
 # make splits
 leaveout.get_n_splits(predictors)
 
-# table/data frame 
-
-# WORKING ON THIS
-
-
-# Create empty DataFrame with specific column types
-df = pd.DataFrame({'Courses': pd.Series(dtype='str'),
-                   'Fee': pd.Series(dtype='int'),
-                   'Duration': pd.Series(dtype='str'),
-                   'Discount': pd.Series(dtype='float')})
-print(df.dtypes)
+# table/data frame for storing cross validation results
+cross_val_df = pd.DataFrame(\
+                             {'Courses' : pd.Series(dtype='float'),
+                             'Fee'      : pd.Series(dtype='float'),
+                             'Duration' : pd.Series(dtype='float'),
+                             'Discount' : pd.Series(dtype='dloat')
+                             })
+# ~ print(df.dtypes)
 
 
 cross_validation_results = pd.DataFrame(\
