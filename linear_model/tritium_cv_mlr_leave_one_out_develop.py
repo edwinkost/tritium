@@ -180,7 +180,7 @@ for train_index, test_index in leaveout.split(predictors):
                               'mae_train_test'      : mae_test,
                              }
    print(new_row)
-   cross_val_df.append(new_row)
+   cross_val_df.append(new_row, ignore_index = True)
                              
    # ~ if i == 0: break
 
