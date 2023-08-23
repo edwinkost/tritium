@@ -96,23 +96,23 @@ leaveout = LeavePOut(1)
 # make splits
 leaveout.get_n_splits(predictors)
 
-# table/data frame for storing the cross validation result
-cross_val_df = pd.DataFrame(\
-                             {
-                              'i'                   : pd.Series(dtype='int'),
-                              'intercept'           : pd.Series(dtype='float'),
-                              'reg_coef_1'          : pd.Series(dtype='float'),
-                              'reg_coef_2'          : pd.Series(dtype='float'),
-                              'reg_coef_3'          : pd.Series(dtype='float'),
-                              'r_squared_train'     : pd.Series(dtype='float'),
-                              'adj_r_squared_train' : pd.Series(dtype='float'),
-                              'rmse_train_train'    : pd.Series(dtype='float'),
-                              'mae_train_train'     : pd.Series(dtype='float'),
-                              'r_squared_test'      : pd.Series(dtype='float'),
-                              'adj_r_squared_test'  : pd.Series(dtype='float'),
-                              'rmse_train_test'     : pd.Series(dtype='float'),
-                              'mae_train_test'      : pd.Series(dtype='float'),
-                             })
+# ~ # table/data frame for storing the cross validation result
+# ~ cross_val_df = pd.DataFrame(\
+                             # ~ {
+                              # ~ 'i'                   : pd.Series(dtype='int'),
+                              # ~ 'intercept'           : pd.Series(dtype='float'),
+                              # ~ 'reg_coef_1'          : pd.Series(dtype='float'),
+                              # ~ 'reg_coef_2'          : pd.Series(dtype='float'),
+                              # ~ 'reg_coef_3'          : pd.Series(dtype='float'),
+                              # ~ 'r_squared_train'     : pd.Series(dtype='float'),
+                              # ~ 'adj_r_squared_train' : pd.Series(dtype='float'),
+                              # ~ 'rmse_train_train'    : pd.Series(dtype='float'),
+                              # ~ 'mae_train_train'     : pd.Series(dtype='float'),
+                              # ~ 'r_squared_test'      : pd.Series(dtype='float'),
+                              # ~ 'adj_r_squared_test'  : pd.Series(dtype='float'),
+                              # ~ 'rmse_train_test'     : pd.Series(dtype='float'),
+                              # ~ 'mae_train_test'      : pd.Series(dtype='float'),
+                             # ~ })
 
 
 # perform cross validation
