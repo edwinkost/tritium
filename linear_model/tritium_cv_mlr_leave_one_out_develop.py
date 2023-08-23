@@ -178,7 +178,9 @@ for train_index, test_index in leaveout.split(predictors):
                               'rmse_train_test'     : rmse_test,
                               'mae_train_test'      : mae_test,
                              }
-   print(new_row)                          
+   print(new_row)
+   cross_val_df.add(new_row)
+                             
+   if i = 0: break
 
-    
     
