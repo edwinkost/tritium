@@ -182,7 +182,7 @@ for train_index, test_index in leaveout.split(predictors):
    print(new_row)
    cross_val_df.append(new_row)
                              
-   if i = 0: break
+   # ~ if i == 0: break
 
 # write data frame to a text file
 cross_val_df.to_csv("cv_result.csv")
