@@ -1,7 +1,7 @@
 
 # Note: To run this script, you need PCRaster (https://pcraster.geo.uu.nl/). To install it, see e.g. https://pcraster.geo.uu.nl/pcraster/4.4.0/documentation/pcraster_project/install.html 
 
-INPUT_TABLE="../datasets/version_20230812/datasets/version_20230509/geospatialmodel_latlon_trimmedparams_20230522_header_lat_lon_dwt_ratio-aet-p_ratio-pet-p.txt"
+INPUT_TABLE="../datasets/version_20230812/geospatialmodel_latlon_trimmedparams_20230522_header_lat_lon_dwt_ratio-aet-p_ratio-pet-p.txt"
 
 rm dwt.map ratio_aet_p.map ratio_pet_p.map
 col2map -a --clone cellsize05min.correct.map -x 2 -y 1 -v 3 ${INPUT_TABLE} dwt.map
