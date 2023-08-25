@@ -34,7 +34,7 @@ pcrcalc validity_simple.map = "
 
 
 # convert the validity map to a tif (and give it a version) 
-gdal_translate validity_simple.map validity_simple_v2023085.tif
+gdal_translate validity_simple.map validity_simple_v20230805.tif
 
 
 # remove temporary files
