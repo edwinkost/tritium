@@ -1,30 +1,7 @@
 
-#~ sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ ls -lah ../model_spatial/
-#~ total 285M
-#~ drwxr-xr-x 2 sutan101 depfg    9 Jun  8 12:16 .
-#~ drwxr-xr-x 8 sutan101 depfg    7 Jun  8 10:16 ..
-#~ -r-xr-xr-- 1 sutan101 depfg  36M Dec 12  2020 cellsize05min.correct.map
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun  8 12:16 dwt.map
-#~ -rw-r--r-- 1 sutan101 depfg 1.9K Jun  8 12:16 plot_validity_maps.sh
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun  8 12:16 ratio_aet_p.map
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun  8 12:16 ratio_pet_p.map
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun  8 12:16 validity_complex.map
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun  8 12:16 validity_complex.tif
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun 14 00:31 validity_simple.map
-#~ -rw-r--r-- 1 sutan101 depfg  36M Jun  8 12:16 validity_simple.tif
-
+# remove previous existing files
 rm *.map
-
-# using the following validity_simple.map
-cp -r ../model_spatial/validity_simple.map validity_simple_original.map
-
-# constrain values to maximum 83 year
-pcrcalc validity_simple.map = "min(validity_simple_original.map, 83)"
-aguila validity_simple.map
-
-# using/focussing  
-pcrcalc validity_simple_gt_zero.map      = "if(validity_simple.map gt 0.0 , boolean(1.0))"
-pcrcalc validity_global_gt_zero_only.map = "if(validity_simple_gt_zero.map, validity_simple.map)"
+ls
 
 #~ sutan101@node032.cluster:/scratch/depfg/sutan101/data/pcrglobwb2_input_release/version_2019_11_beta_extended/pcrglobwb2_input/global_05min/routing/ldd_and_cell_area$ ls -lah
 #~ total 188M
@@ -38,43 +15,76 @@ pcrcalc validity_global_gt_zero_only.map = "if(validity_simple_gt_zero.map, vali
 #~ -rw-r--r-- 1 sutan101 depfg  36M Dec 12  2020 lddsound_05min.nc
 #~ -rw-r--r-- 1 sutan101 depfg  36M Dec 12  2020 lddsound_05min_unmask.nc
 
-# ldd map (as used in Sutanudjaja et al., 2018) for defining the landmask area extent
-cp -r /scratch/depfg/sutan101/data/pcrglobwb2_input_release/version_2019_11_beta_extended/pcrglobwb2_input/global_05min/routing/ldd_and_cell_area/lddsound_05min.map .
-
 # cell area map (as used in Sutanudjaja et al, 2018)
 cp -r /scratch/depfg/sutan101/data/pcrglobwb2_input_release/version_2019_11_beta_extended/pcrglobwb2_input/global_05min/routing/ldd_and_cell_area/cellsize05min.correct.map .
 
+# ldd map (as used in Sutanudjaja et al., 2018) for defining the landmask area extent
+cp -r /scratch/depfg/sutan101/data/pcrglobwb2_input_release/version_2019_11_beta_extended/pcrglobwb2_input/global_05min/routing/ldd_and_cell_area/lddsound_05min.map .
 
-# calculate global percentage of validity
+
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ ls -lah ../model_spatial/
+#~ total 36M
+#~ drwxr-xr-x 2 sutan101 depfg    2 Aug 25 12:31 .
+#~ drwxr-xr-x 7 sutan101 depfg    6 Aug 25 11:36 ..
+#~ -rw-r--r-- 1 sutan101 depfg 1.7K Aug 25 12:31 plot_validity_maps.sh
+#~ -rw-r--r-- 1 sutan101 depfg  36M Aug 25 12:31 validity_simple_v20230805.tif
+
+# using the following validity_simple.map
+gdal_translate -of PCRaster ../model_spatial/validity_simple_v20230805.tif validity_simple_original.map
+rm *.xml
+mapattr -c lddsound_05min.map validity_simple_original.map
+
+# constrain values to maximum 83 year
+pcrcalc validity_simple.map = "min(validity_simple_original.map, 83)"
+aguila validity_simple.map
+
+# and using only values greater than zero year
+pcrcalc validity_simple_gt_zero.map      = "if(validity_simple.map gt 0.0 , boolean(1.0))"
+pcrcalc validity_global_gt_zero_only.map = "if(validity_simple_gt_zero.map, validity_simple.map)"
+
+# global size of land mask
 pcrcalc maptotal_global.map = "maptotal(if(defined(lddsound_05min.map), cellsize05min.correct.map))"
-pcrcalc maptotal_valid_simple.map = "maptotal(if(validity_simple_gt_zero.map, cellsize05min.correct.map))"
 
-mapattr -p maptotal_global.map maptotal_valid_simple.map
+# calculate global percentage of validity - using validity_global_gt_zero_only.map
+pcrcalc maptotal_valid_simple_gt_zero.map = "maptotal(if(defined(validity_simple_gt_zero.map), cellsize05min.correct.map))"
 
-#~ sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ mapattr -p maptotal_global.map maptotal_valid_simple.map
+# calculate global percentage of model coverage - using validity_simple.map
+pcrcalc maptotal_valid_simple.map = "maptotal(if(defined(validity_simple.map), cellsize05min.correct.map))"
+
+# unique ids for every model cells within the coverage
+pcrcalc unique_ids_valid_simple.map = "uniqueid(if(defined(validity_simple.map), boolean(1.0)))"
+
+#~ mapattr -p maptotal_global.map maptotal_valid_simple_gt_zero.map maptotal_valid_simple.map unique_ids_valid_simple.map
+
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ mapattr -p maptotal_global.map maptotal_valid_simple_gt_zero.map maptotal_valid_simple.map unique_ids_valid_simple.map
 #~ mapattr version: 4.4.0 (linux/x86_64)
-#~ attributes  maptotal_global.map maptotal_valid_simple.map
-#~ rows        2160                2160
-#~ columns     4320                4320
-#~ cell_length 0.0833333           0.0833333
-#~ data_type   scalar              scalar
-#~ cell_repr   single              single
-#~ projection  yb2t                yb2t
-#~ angle(deg)  0                   0
-#~ xUL         -180                -180
-#~ yUL         90                  90
-#~ min_val     1.32476e+14         2.89466e+13
-#~ max_val     1.32476e+14         2.89466e+13
-#~ version     2                   2
-#~ file_id     0                   0
-#~ native      y                   y
-#~ attr_tab    n                   n
+#~ attributes  maptotal_global.map maptotal_valid_simple_gt_zero.map maptotal_valid_simple.map unique_ids_valid_simple.map
+#~ rows        2160                2160                              2160                      2160
+#~ columns     4320                4320                              4320                      4320
+#~ cell_length 0.0833333           0.0833333                         0.0833333                 0.0833333
+#~ data_type   scalar              scalar                            scalar                    scalar
+#~ cell_repr   single              single                            single                    single
+#~ projection  yb2t                yb2t                              yb2t                      yb2t
+#~ angle(deg)  0                   0                                 0                         0
+#~ xUL         -180                -180                              -180                      -180
+#~ yUL         90                  90                                90                        90
+#~ min_val     1.32476e+14         2.6753e+13                        3.70986e+13               1
+#~ max_val     1.32476e+14         2.6753e+13                        3.70986e+13               518237
+#~ version     2                   2                                 2                         2
+#~ file_id     0                   0                                 0                         0
+#~ native      y                   y                                 y                         y
+#~ attr_tab    n                   n                                 n                         n
 #~ (pcrglobwb_python3_2022-10-17)
-#~ sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ python
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$
+#~ (pcrglobwb_python3_2022-10-17)
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ python
 #~ Python 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:35:26) [GCC 10.4.0] on linux
 #~ Type "help", "copyright", "credits" or "license" for more information.
-#~ >>> 2.89466e+13 / 1.32476e+14
-#~ 0.21850448383103355
+#~ >>> 3.70986e+13 / 1.32476e+14
+#~ 0.28004015821733746
+#~ >>> 2.6753e+13 / 1.32476e+14
+#~ 0.20194601286270722
+#~ >>>
 
 
 # calculate stats (median and IQR) of validity_global_gt_zero_only.map
@@ -86,15 +96,18 @@ mask = np_values < 1e20
 np_values = np_values[mask]
 np.median(np_values)
 np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
+#~ #
+#~ >>> import pcraster as pcr
 #~ >>> import numpy as np
 #~ >>> map = pcr.readmap("validity_global_gt_zero_only.map")
 #~ >>> np_values = pcr.pcr2numpy(map, 1e20)
 #~ >>> mask = np_values < 1e20
 #~ >>> np_values = np_values[mask]
 #~ >>> np.median(np_values)
-#~ 29.542212
+#~ 26.737137
 #~ >>> np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
-#~ 36.46290969848633
+#~ 38.24571132659912
+#~ >>>
 
 
 ########################################################################
@@ -127,7 +140,7 @@ pcrcalc maptotal_conus.map = "maptotal(if(conus.map, cellsize05min.correct.map))
 pcrcalc maptotal_conus_valid_simple.map = "maptotal(if(conus.map, if(validity_simple_gt_zero.map, cellsize05min.correct.map)))"
 mapattr -p maptotal_conus*.map
 
-#~ sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ mapattr -p maptotal_conus*.map
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ mapattr -p maptotal_conus*.map
 #~ mapattr version: 4.4.0 (linux/x86_64)
 #~ attributes  maptotal_conus.map maptotal_conus_valid_simple.map
 #~ rows        2160               2160
@@ -139,18 +152,21 @@ mapattr -p maptotal_conus*.map
 #~ angle(deg)  0                  0
 #~ xUL         -180               -180
 #~ yUL         90                 90
-#~ min_val     8.08691e+12        3.04705e+12
-#~ max_val     8.08691e+12        3.04705e+12
+#~ min_val     8.08691e+12        2.76406e+12
+#~ max_val     8.08691e+12        2.76406e+12
 #~ version     2                  2
 #~ file_id     0                  0
 #~ native      y                  y
 #~ attr_tab    n                  n
 #~ (pcrglobwb_python3_2022-10-17)
-#~ sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ python
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$
+#~ (pcrglobwb_python3_2022-10-17)
+#~ sutan101@gpu030.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity$ python
 #~ Python 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:35:26) [GCC 10.4.0] on linux
 #~ Type "help", "copyright", "credits" or "license" for more information.
-#~ >>> 3.04705e+12 / 8.08691e+12
-#~ 0.37678792023158414
+#~ >>> 2.76406e+12 / 8.08691e+12
+#~ 0.3417943318276078
+#~ >>>
 
 
 
@@ -189,7 +205,6 @@ pcrcalc validity_western_us_conus_gt_zero_only.map = "if(defined(western_us.map)
 import pcraster as pcr
 import numpy as np
 
-# conus
 map = pcr.readmap("validity_simple_conus_gt_zero_only.map")
 np_values = pcr.pcr2numpy(map, 1e20)
 mask = np_values < 1e20
@@ -197,9 +212,10 @@ np_values = np_values[mask]
 np.median(np_values)
 np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
 #~ >>> np.median(np_values)
-#~ 25.910164
+#~ 23.786543
 #~ >>> np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
-#~ 35.41327929496765
+#~ 37.13852643966675
+#~ >>>
 
 map = pcr.readmap("validity_north_eastern_us_conus_gt_zero_only.map")
 np_values = pcr.pcr2numpy(map, 1e20)
@@ -207,10 +223,11 @@ mask = np_values < 1e20
 np_values = np_values[mask]
 np.median(np_values)
 np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
->>> np.median(np_values)
-25.892141
->>> np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
-19.7247257232666
+#~ >>> np.median(np_values)
+#~ 18.814137
+#~ >>> np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
+#~ 16.05710220336914
+#~ >>>
 
 map = pcr.readmap("validity_western_us_conus_gt_zero_only.map")
 np_values = pcr.pcr2numpy(map, 1e20)
@@ -218,53 +235,9 @@ mask = np_values < 1e20
 np_values = np_values[mask]
 np.median(np_values)
 np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
->>> np.median(np_values)
-42.38822
->>> np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
-39.59140968322754
+#~ >>> np.median(np_values)
+#~ 39.839314
+#~ >>> np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
+#~ 40.12320518493652
+#~ >>>
 
-
-#####################################
-
-# complex model
-
-
-# validity complex
-pcrcalc validity_complex_gt_zero.map = "if(validity_complex.map gt 0, boolean(1.0))"
-pcrcalc maptotal_valid_complex.map = "maptotal(if(validity_complex_gt_zero.map, cellsize05min.correct.map))"
-mapattr -p maptotal_global.map maptotal_valid_complex.map
-sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity/complex$ mapattr -p maptotal_global.map maptotal_valid_complex.map
-mapattr version: 4.4.0 (linux/x86_64)
-attributes  maptotal_global.map maptotal_valid_complex.map
-rows        2160                2160
-columns     4320                4320
-cell_length 0.0833333           0.0833333
-data_type   scalar              scalar
-cell_repr   single              single
-projection  yb2t                yb2t
-angle(deg)  0                   0
-xUL         -180                -180
-yUL         90                  90
-min_val     1.32476e+14         3.37319e+13
-max_val     1.32476e+14         3.37319e+13
-version     2                   2
-file_id     0                   0
-native      y                   y
-attr_tab    n                   n
-(pcrglobwb_python3_2022-10-17)
-sutan101@node032.cluster:/eejit/home/sutan101/github/edwinkost/tritium/model_validity/complex$ python
-Python 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:35:26) [GCC 10.4.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>> 3.37319e+13/1.32476e+14
-0.25462649838461304
-
-# validity complex global
-pcrcalc validity_complex_global_gt_zero_only.map = "if(validity_complex_gt_zero.map, validity_complex.map)"
-import pcraster as pcr
-import numpy as np
-map = pcr.readmap("validity_complex_global_gt_zero_only.map")
-np_values = pcr.pcr2numpy(map, 1e20)
-mask = np_values < 1e20
-np_values = np_values[mask]
-np.median(np_values)
-np.quantile(np_values, 0.75) - np.quantile(np_values, 0.25)
