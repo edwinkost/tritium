@@ -200,4 +200,3 @@ for train_index, test_index in cross_validation_method.split(predictors, target)
 # ~ cross_val_df.to_csv("cv_result_kfold_v20230823_1000.csv", index = False)  
 cross_val_df.to_csv("cv_result_kfold_v20230823_20000.csv", index = False)  
 
-# TODO: plot the histogram (see e.g. https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.hist.html)
